@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
             password=password,
             username=username,
         )
-        user.is_worker = True
+        user.worker = True
         user.save(using=self._db)
         return user
 
@@ -55,7 +55,7 @@ class UserManager(BaseUserManager):
             password=password,
             username=username,
         )
-        user.is_client = True
+        user.client = True
         user.save(using=self._db)
         return user
     
@@ -75,9 +75,9 @@ class User(AbstractBaseUser):
         unique=True,
     )
     
-    is_worker = models.BooleanField(default=False)
+    worker = models.BooleanField(default=False)
     
-    is_client = models.BooleanField(default=False)
+    client = models.BooleanField(default=False)
     
     is_active = models.BooleanField(default=True)
     
@@ -115,10 +115,10 @@ class User(AbstractBaseUser):
     @property
     def is_worker(self):
         "Is the user a member of worker?"
-        return self.is_worker
+        return self.worker
     
     @property
     def is_client(self):
         "Is the user a member of client?"
-        return self.is_client
+        return self.client
 
