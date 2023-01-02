@@ -122,3 +122,15 @@ class User(AbstractBaseUser):
         "Is the user a member of client?"
         return self.client
 
+
+
+class Profil(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    
+    lastname = models.CharField(verbose_name="lastname", max_length=50, null=True)
+    firstname = models.CharField(verbose_name="firstname", max_length=50, null=True)
+    birthday = models.CharField(max_length=60, null=True)
+    sex = models.CharField(max_length=60, null=True)
+    bio = models.TextField(blank=True)
+    
+    
