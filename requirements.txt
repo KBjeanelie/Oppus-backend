@@ -1,0 +1,10 @@
+Django
+django-cors-headers
+django-filter
+djangorestframework
+Markdown
+PyYAML
+requests
+djangorestframework-simplejwt
+PyJWT
+pytz
