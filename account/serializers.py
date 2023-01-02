@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from account.models import User
+from account.models import Profil, User
 
 
 
@@ -19,3 +19,9 @@ class UserRegistrationClientSerializer(serializers.ModelSerializer):
 
     def create(self, validate_data):
         return User.objects.create_clientuser(**validate_data)
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profil
+        fields = '__all__'

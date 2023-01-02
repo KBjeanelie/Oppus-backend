@@ -1,11 +1,12 @@
 from rest_framework.views import APIView
 from account.renderers import UserRenderer
-from account.serializers import UserLoginSerializer, UserRegistrationClientSerializer
+from account.serializers import UserLoginSerializer, UserProfileSerializer, UserRegistrationClientSerializer
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
-import json
+from rest_framework import authentication
+from rest_framework.permissions import IsAuthenticated
 
 # Generate Token Manually
 def get_tokens_for_user(user):
@@ -34,10 +35,19 @@ class UserLoginView(APIView):
 
 
 class UserRegistrationClientView(APIView):
-  renderer_classes = [UserRenderer]
-  def post(self, request, format=None):
-    serializer = UserRegistrationClientSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    user = serializer.save()
-    token = get_tokens_for_user(user)
-    return Response({'token':token, 'msg':'Registration Successful'}, status=status.HTTP_201_CREATED)
+    renderer_classes = [UserRenderer]
+    def post(self, request, format=None):
+      serializer = UserRegistrationClientSerializer(data=request.data)
+      serializer.is_valid(raise_exception=True)
+      user = serializer.save()
+      token = get_tokens_for_user(user)
+      return Response({'token':token, 'msg':'Registration Successful'}, status=status.HTTP_201_CREATED)
+
+
+
+class UserProfileView(APIView):
+    renderer_classes = [UserRenderer]
+    permission_classes = [IsAuthenticated]
+    def get(self, request, format=None):
+      serializer = UserProfileSerializer(request.user)
+      return Response(serializer.data, status=status.HTTP_200_OK)
