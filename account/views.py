@@ -1,11 +1,11 @@
 from rest_framework.views import APIView
 from account.renderers import UserRenderer
-from account.serializers import UserLoginSerializer, UserProfileSerializer, UserRegistrationClientSerializer
+from account.serializers import UserLoginSerializer, UserProfileSerializer, UserRegistrationClientSerializer, UserSerializer
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
-from rest_framework import authentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 # Generate Token Manually
@@ -17,6 +17,16 @@ def get_tokens_for_user(user):
   }
   
   
+# GET THE CURRENT USER AUTHENTICATED
+class GetCurrentUserView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
 # Create your views here.
 class UserLoginView(APIView):
   renderer_classes = [UserRenderer]
