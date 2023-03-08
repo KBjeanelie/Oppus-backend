@@ -5,6 +5,8 @@ class Domaine(models.Model):
     
     nom_domaine = models.CharField(max_length=100)
     
+    image = models.ImageField(upload_to='domaine_img/', blank=True, null=True)
+    
     created_at = models.DateTimeField(auto_now_add=True)
     
     updated_at = models.DateTimeField(auto_now=True)

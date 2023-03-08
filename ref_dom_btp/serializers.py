@@ -14,9 +14,11 @@ class DomaineSerializer(serializers.ModelSerializer):
     
     travaux_set = TravauxSerializer(many=True, read_only=True)
     
+    image = serializers.ImageField(max_length=None, use_url=True, required=False)
+    
     class Meta:
         model = Domaine
-        fields = ['id', 'nom_domaine', 'travaux_set']
+        fields = ['id', 'nom_domaine', 'image', 'travaux_set']
 
 
 
