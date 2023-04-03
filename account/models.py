@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager,AbstractBaseUser
 
 #  Custom User Manager
 class UserManager(BaseUserManager):
-    def create_user(self, email, username, password=None, password2=None):
+    def create_user(self, email, username, tel, password=None):
         """
         Creates and saves a User with the given email, name, tc and password.
         """
@@ -13,13 +13,14 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             username=username,
+            tel=tel
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, password=None):
+    def create_superuser(self, email, username, tel, password=None):
         """
         Creates and saves a superuser with the given email, and password.
         """
@@ -27,13 +28,14 @@ class UserManager(BaseUserManager):
             email,
             password=password,
             username=username,
+            tel=tel
         )
         user.is_admin = True
         user.save(using=self._db)
         return user
     
     
-    def create_workeruser(self, email, username, password=None):
+    def create_workeruser(self, email, username, tel, password=None):
         """
         Creates and saves a workeruser with the given email,  and password.
         """
@@ -41,12 +43,14 @@ class UserManager(BaseUserManager):
             email,
             password=password,
             username=username,
+            tel=tel
         )
         user.worker = True
         user.save(using=self._db)
         return user
 
-    def create_clientuser(self, email, username, password=None):
+
+    def create_clientuser(self, email, username, tel, password=None):
         """
         Creates and saves a clientuser with the given email,  and password.
         """
@@ -54,6 +58,7 @@ class UserManager(BaseUserManager):
             email,
             password=password,
             username=username,
+            tel=tel
         )
         user.client = True
         user.save(using=self._db)
@@ -75,6 +80,8 @@ class User(AbstractBaseUser):
         unique=True,
     )
     
+    tel = models.CharField(max_length=20, unique=True, default="")
+    
     worker = models.BooleanField(default=False)
     
     client = models.BooleanField(default=False)
@@ -91,7 +98,7 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD = 'email'
     
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username', 'tel']
 
     def __str__(self):
         return f"{self.username} - {self.email}"
@@ -121,6 +128,7 @@ class User(AbstractBaseUser):
     def is_client(self):
         "Is the user a member of client?"
         return self.client
+
 
 
 
