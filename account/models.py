@@ -69,18 +69,19 @@ class UserManager(BaseUserManager):
 #  Custom User Model
 class User(AbstractBaseUser):
     
-    email = models.EmailField(
-        verbose_name='Email',
-        max_length=255,
-        unique=True,
-    )
+    email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
     
-    username = models.CharField(
-        max_length=255,
-        unique=True,
-    )
+    username = models.CharField(max_length=255, unique=True,)
+    
+    nom = models.CharField(max_length=60, null=True)
     
     tel = models.CharField(max_length=20, unique=True, default="")
+    
+    prenom = models.CharField(max_length=60, null=True)
+    
+    adresse = models.CharField(max_length=100, null=True)
+    
+    datenais = models.DateField(null=True, blank=True)
     
     worker = models.BooleanField(default=False)
     
@@ -99,6 +100,19 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     
     REQUIRED_FIELDS = ['username', 'tel']
+    
+    def send_message(self, recipients, content):
+        from messagerie.models import Message
+        message = Message.objects.create(sender=self, content=content)
+        message.recipient.add(*recipients)
+        return message
+
+    def get_received_messages(self):
+        return self.received_messages.all()
+
+    def get_sent_messages(self):
+        return self.sent_messages.all()
+    
 
     def __str__(self):
         return f"{self.username} - {self.email}"
@@ -129,16 +143,4 @@ class User(AbstractBaseUser):
         "Is the user a member of client?"
         return self.client
 
-
-
-
-class Profil(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    
-    lastname = models.CharField(verbose_name="lastname", max_length=50, null=True)
-    firstname = models.CharField(verbose_name="firstname", max_length=50, null=True)
-    birthday = models.CharField(max_length=60, null=True)
-    sex = models.CharField(max_length=60, null=True)
-    bio = models.TextField(blank=True)
-    
-    
+ 
