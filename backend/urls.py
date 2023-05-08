@@ -22,5 +22,6 @@ urlpatterns = [
     path('api/user/', include('account.urls')),
     path('api/ref-btp/', include('ref_dom_btp.urls')),
     path('api/messagerie/', include('messagerie.urls')),
-    path('api/gest_qual_ouvrier/', include('gest_qual_ouvrier.urls'))
+    path('api/gest_qual_ouvrier/', include('gest_qual_ouvrier.urls')),
+    path('api/gest_offres/', include('gest_offres.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
