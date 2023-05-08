@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # Create your models here.
+
+
 class Message(models.Model):
     
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')

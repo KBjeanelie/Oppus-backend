@@ -68,6 +68,8 @@ class UserManager(BaseUserManager):
     
 #  Custom User Model
 class User(AbstractBaseUser):
+
+
     
     email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
     

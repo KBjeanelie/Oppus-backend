@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'messagerie',
     'account',
     'ref_dom_btp',
+    'gest_qual_ouvrier',
 ]
 
 MIDDLEWARE = [
