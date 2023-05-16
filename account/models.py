@@ -5,7 +5,7 @@ from ref_dom_btp.models import Metier
 
 #  Custom User Manager
 class UserManager(BaseUserManager):
-    def create_user(self, email, username, tel, password=None):
+    def create_user(self, email, username,password=None):
         """
         Creates and saves a User with the given email, name, tc and password.
         """
@@ -15,7 +15,6 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             username=username,
-            tel=tel
         )
 
         user.set_password(password)
@@ -53,7 +52,7 @@ class User(AbstractBaseUser):
     
     civilite = models.CharField(max_length=7, null=True, blank=True)
     
-    tel = models.CharField(max_length=20, unique=True, default="", blank=True)
+    tel = models.CharField(max_length=20, unique=True, null=True, blank=True)
     
     adress = models.CharField(max_length=60, null=True, blank=True)
     
