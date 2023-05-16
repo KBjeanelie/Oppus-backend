@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager,AbstractBaseUser
 
+from ref_dom_btp.models import Metier
+
 #  Custom User Manager
 class UserManager(BaseUserManager):
     def create_user(self, email, username, tel, password=None):
@@ -33,62 +35,32 @@ class UserManager(BaseUserManager):
         user.is_admin = True
         user.save(using=self._db)
         return user
-    
-    
-    def create_workeruser(self, email, username, tel, password=None):
-        """
-        Creates and saves a workeruser with the given email,  and password.
-        """
-        user = self.create_user(
-            email,
-            password=password,
-            username=username,
-            tel=tel
-        )
-        user.worker = True
-        user.save(using=self._db)
-        return user
 
 
-    def create_clientuser(self, email, username, tel, password=None):
-        """
-        Creates and saves a clientuser with the given email,  and password.
-        """
-        user = self.create_user(
-            email,
-            password=password,
-            username=username,
-            tel=tel
-        )
-        user.client = True
-        user.save(using=self._db)
-        return user
     
     
     
 #  Custom User Model
 class User(AbstractBaseUser):
-
-
-    
-    email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
     
     username = models.CharField(max_length=255, unique=True,)
     
+    prenom = models.CharField(max_length=60, null=True)
+    
     nom = models.CharField(max_length=60, null=True)
+
+    email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
+    
+    civilite = models.CharField(max_length=7, null=True)
     
     tel = models.CharField(max_length=20, unique=True, default="")
     
-    prenom = models.CharField(max_length=60, null=True)
+    adress = models.CharField(max_length=60, null=True)
     
-    adresse = models.CharField(max_length=100, null=True)
+    date_naiss = models.CharField(max_length=60, null=True)
     
-    datenais = models.DateField(null=True, blank=True)
-    
-    worker = models.BooleanField(default=False)
-    
-    client = models.BooleanField(default=False)
-    
+    ville = models.CharField(max_length=60, null=True)
+
     is_active = models.BooleanField(default=True)
     
     is_admin = models.BooleanField(default=False)
@@ -103,17 +75,17 @@ class User(AbstractBaseUser):
     
     REQUIRED_FIELDS = ['username', 'tel']
     
-    def send_message(self, recipients, content):
-        from messagerie.models import Message
-        message = Message.objects.create(sender=self, content=content)
-        message.recipient.add(*recipients)
-        return message
+    # def send_message(self, recipients, content):
+    #     from messagerie.models import Message
+    #     message = Message.objects.create(sender=self, content=content)
+    #     message.recipient.add(*recipients)
+    #     return message
 
-    def get_received_messages(self):
-        return self.received_messages.all()
+    # def get_received_messages(self):
+    #     return self.received_messages.all()
 
-    def get_sent_messages(self):
-        return self.sent_messages.all()
+    # def get_sent_messages(self):
+    #     return self.sent_messages.all()
     
 
     def __str__(self):
@@ -134,15 +106,25 @@ class User(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
-    
-    @property
-    def is_worker(self):
-        "Is the user a member of worker?"
-        return self.worker
-    
-    @property
-    def is_client(self):
-        "Is the user a member of client?"
-        return self.client
 
- 
+class Worker(User):
+    # Champs spécifiques à l'ouvrier
+    
+    metier = models.ForeignKey(Metier, on_delete=models.CASCADE)
+    
+    nombre_jobs = models.IntegerField(default=0)
+    
+    nombre_davis = models.IntegerField(default=0)
+    
+    annee_experience = models.IntegerField(default=0)
+    
+    REQUIRED_FIELDS = ['metier', 'username']
+
+class Employeur(User):
+    # Champs spécifiques à l'employeur
+    pass
+
+class Gestionnaire(User):
+    # Champs spécifiques au gestionnaire
+    USERNAME_FIELD = ['username']
+    REQUIRED_FIELDS = ['email', 'tel']
