@@ -1,5 +1,5 @@
 from django.urls import path
-from account.views import EmployeurRegistrationView, GetCurrentUserView, UserLoginView, UserRegistrationClientView, WorkerRegistrationView
+from account.views import EmployeurRegistrationView, GetCurrentUserView, UserLoginView, WorkerRegistrationView
 
 urlpatterns = [
     path('login/', UserLoginView.as_view(), name='login'),

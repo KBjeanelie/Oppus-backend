@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/user/', include('account.urls')),
+    path('api/', include('account.urls')),
     path('api/ref-btp/', include('ref_dom_btp.urls')),
     path('api/messagerie/', include('messagerie.urls')),
     path('api/gest_qual_ouvrier/', include('gest_qual_ouvrier.urls')),
