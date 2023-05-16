@@ -42,7 +42,7 @@ class UserLoginView(APIView):
 
         if user is not None:
             token = get_tokens_for_user(user)
-            return Response({'token': token, 'msg': 'Login Success'}, status=status.HTTP_200_OK)
+            return Response(token, status=status.HTTP_200_OK)
         else:
             return Response({'errors': {'non_field_errors': ['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
 
@@ -53,7 +53,7 @@ class EmployeurRegistrationView(APIView):
         serializer.is_valid(raise_exception=True)
         employeur = serializer.save()
         token = get_tokens_for_user(employeur)
-        return Response({'token':token,'msg': 'Registration successful'}, status=status.HTTP_201_CREATED)
+        return Response(token, status=status.HTTP_201_CREATED)
 
 
 class WorkerRegistrationView(APIView):
@@ -62,4 +62,4 @@ class WorkerRegistrationView(APIView):
         serializer.is_valid(raise_exception=True)
         worker = serializer.save()
         token = get_tokens_for_user(worker)
-        return Response({'token':token,'msg': 'Registration successful'}, status=status.HTTP_201_CREATED)
+        return Response(token, status=status.HTTP_201_CREATED)
