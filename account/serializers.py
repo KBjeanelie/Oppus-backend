@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from account.models import Employeur, Gestionnaire, User, Worker
 from ref_dom_btp.models import Metier
+from ref_dom_btp.serializers import MetierSerializer
 
 class UserLoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255)
@@ -98,6 +99,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class WorkerSerializer(serializers.ModelSerializer):
+    metier = MetierSerializer()
+     
     class Meta:
         model = Worker
         fields = '__all__'

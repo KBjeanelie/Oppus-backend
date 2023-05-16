@@ -79,3 +79,6 @@ base_url = "http://localhost:8000/api/"
 #     else:
 #         print(f"Échec de l'inscription de l'ouvrier {i+1}.")
 
+url = "http://localhost:8000/api/workers/14"
+response = requests.get(url)
+print(response.text)

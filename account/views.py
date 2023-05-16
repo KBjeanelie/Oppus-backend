@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
+from account.models import Worker
+from rest_framework import viewsets
 from account.renderers import UserRenderer
-from account.serializers import EmployeurRegistrationSerializer, UserLoginSerializer, UserSerializer, WorkerRegistrationSerializer
+from account.serializers import EmployeurRegistrationSerializer, UserLoginSerializer, UserSerializer, WorkerRegistrationSerializer, WorkerSerializer
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -63,3 +65,9 @@ class WorkerRegistrationView(APIView):
         worker = serializer.save()
         token = get_tokens_for_user(worker)
         return Response(token, status=status.HTTP_201_CREATED)
+
+
+
+class WorkerViewSet(viewsets.ModelViewSet):
+    queryset = Worker.objects.all()
+    serializer_class = WorkerSerializer
