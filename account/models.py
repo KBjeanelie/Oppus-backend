@@ -20,6 +20,23 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+    
+    def create_worker(self, email, username, metier, password=None):
+        """
+        Creates and saves a User with the given email, name, tc and password.
+        """
+        if not email:
+            raise ValueError('User must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email),
+            username=username,
+        )
+        
+        user.set_password(password)
+        user.metier = metier
+        user.save(using=self._db)
+        return user
 
     def create_superuser(self, email, username, tel, password=None):
         """
@@ -117,7 +134,7 @@ class Worker(User):
     
     annee_experience = models.IntegerField(default=0)
     
-    REQUIRED_FIELDS = ['metier', 'username']
+    REQUIRED_FIELDS = ['metier', 'username', 'tel']
 
 class Employeur(User):
     # Champs spécifiques à l'employeur

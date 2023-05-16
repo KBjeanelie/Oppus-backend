@@ -83,22 +83,13 @@ class EmployeurRegistrationSerializer(serializers.ModelSerializer):
 
 
 class WorkerRegistrationSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(max_length=255)
-    username = serializers.CharField(max_length=255)
-    password = serializers.CharField(write_only=True)
-    metier = serializers.PrimaryKeyRelatedField(queryset=Metier.objects.all())
 
     class Meta:
         model = Worker
         fields = ['email', 'username', 'password', 'metier']
 
     def create(self, validated_data):
-        worker = Worker.objects.create_user(
-            email=validated_data['email'],
-            username=validated_data['username'],
-            password=validated_data['password'],
-            metier=validated_data['metier']
-        )
+        worker = Worker.objects.create_worker(**validated_data)
         return worker
 
 class UserSerializer(serializers.ModelSerializer):
