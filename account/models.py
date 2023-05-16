@@ -45,21 +45,21 @@ class User(AbstractBaseUser):
     
     username = models.CharField(max_length=255, unique=True,)
     
-    prenom = models.CharField(max_length=60, null=True)
+    prenom = models.CharField(max_length=60, null=True, blank=True)
     
-    nom = models.CharField(max_length=60, null=True)
+    nom = models.CharField(max_length=60, null=True, blank=True)
 
     email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
     
-    civilite = models.CharField(max_length=7, null=True)
+    civilite = models.CharField(max_length=7, null=True, blank=True)
     
-    tel = models.CharField(max_length=20, unique=True, default="")
+    tel = models.CharField(max_length=20, unique=True, default="", blank=True)
     
-    adress = models.CharField(max_length=60, null=True)
+    adress = models.CharField(max_length=60, null=True, blank=True)
     
-    date_naiss = models.CharField(max_length=60, null=True)
+    date_naiss = models.CharField(max_length=60, null=True, blank=True)
     
-    ville = models.CharField(max_length=60, null=True)
+    ville = models.CharField(max_length=60, null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     
