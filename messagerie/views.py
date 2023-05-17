@@ -1,3 +1,4 @@
+from django.views import View
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,9 +8,11 @@ from messagerie.serializers import MessageSerializer, UserMessageSerializer
 from django.db.models import Q, Max
 from messagerie.serializers import UserSerializer
 
-
-
 User = get_user_model()
+
+class IndexView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response({'Message': "Bienvenue sur l'API de Oppuss"})
 
 
 class MessagesListView(APIView):

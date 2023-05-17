@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from .models import Domaine, Travaux
 from .serializers import DomaineSerializer, TravauxSerializer
 
+
 class MetierViewSet(viewsets.ModelViewSet):
     queryset = Metier.objects.all()
     serializer_class = MetierSerializer

@@ -19,9 +19,10 @@ from django.urls import path, include
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('account.urls')),
-    path('api/ref-btp/', include('ref_dom_btp.urls')),
-    path('api/messagerie/', include('messagerie.urls')),
-    path('api/gest_qual_ouvrier/', include('gest_qual_ouvrier.urls')),
-    path('api/gest_offres/', include('gest_offres.urls'))
+    path('', include('messagerie.urls')),
+    path('api/gestion/compte/', include('account.urls')),
+    path('api/referentiel-btp/', include('ref_dom_btp.urls')),
+    path('api/gestion/messagerie/', include('messagerie.urls')),
+    path('api/gestion/qualification-ouvrier/', include('gest_qual_ouvrier.urls')),
+    path('api/gestion/offres/', include('gest_offres.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
