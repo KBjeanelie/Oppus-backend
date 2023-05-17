@@ -128,6 +128,8 @@ class Worker(User):
     
     metier = models.ForeignKey(Metier, on_delete=models.CASCADE)
     
+    competences = models.ManyToManyField('account.Competence', related_name="competences", blank=True)
+    
     nombre_jobs = models.IntegerField(default=0)
     
     nombre_davis = models.IntegerField(default=0)
