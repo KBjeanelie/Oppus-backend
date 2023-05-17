@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from account.models import Employeur, Worker
 from rest_framework import viewsets
 from account.renderers import UserRenderer
-from account.serializers import EmployeurRegistrationSerializer, EmployeurSerializer, UserLoginSerializer, UserSerializer, WorkerRegistrationSerializer, WorkerSerializer
+from account.serializers import EmployeurRegistrationSerializer, EmployeurSerializer, UserLoginSerializer, WorkerRegistrationSerializer, WorkerSerializer
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -14,17 +14,25 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
     return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
+        'refresh_token': str(refresh),
+        'access_token': str(refresh.access_token),
     }
 
 # GET THE CURRENT USER AUTHENTICATED
-class GetCurrentUserView(APIView):
+class GetCurrentEmployeurView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
-        user = request.user
-        serializer = UserSerializer(user)
+        employeur = request.user
+        serializer = EmployeurSerializer(employeur)
+        return Response(serializer.data)
+
+class GetCurrentWorkerView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        worker = request.user
+        serializer = WorkerSerializer(worker)
         return Response(serializer.data)
 
 # Custom Token Obtain Pair View
