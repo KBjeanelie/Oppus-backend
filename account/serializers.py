@@ -123,6 +123,7 @@ class EmployeurSerializer(serializers.ModelSerializer):
         model = Employeur
         fields = '__all__'
 
+
 class GestionnaireSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gestionnaire

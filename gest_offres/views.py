@@ -23,13 +23,21 @@ class AppreciationViewSet(viewsets.ModelViewSet):
         if reservation.worker == self.request.user:
             serializer.save(employeur=self.request.user)
         else:
-            raise PermissionDenied('Vous n\'êtes pas autorisé à ajouter une appréciation pour cette réservation.')
+            raise('Vous n\'êtes pas autorisé à ajouter une appréciation pour cette réservation.')
 
 
 class OffreViewSet(viewsets.ModelViewSet):
     queryset = Offre.objects.all()
     serializer_class = OffreSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class OffreArchiveViewSet(viewsets.ModelViewSet):
+    queryset = Offre.objects.filter(statut=False)
+    serializer_class = OffreSerializer
+    #permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
