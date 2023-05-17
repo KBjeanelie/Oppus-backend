@@ -1,7 +1,6 @@
 from rest_framework import viewsets
-from rest_framework.response import Response
-from .models import Competence, Etablissement, Diplome, Domaine_Etude, Formation, Experience
-from .serializers import CompetenceSerializer, DomaineEtudeSerializer, EtablissementSerializer, DiplomeSerializer, FormationSerializer, ExperienceSerializer
+from .models import Competence, Formation, Experience
+from .serializers import CompetenceSerializer, FormationSerializer, ExperienceSerializer
 
 
 class CompetenceViewSet(viewsets.ModelViewSet):

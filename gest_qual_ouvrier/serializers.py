@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Formation, Experience
+from .models import Competence, Formation, Experience
 
 
 class FormationSerializer(serializers.ModelSerializer):
@@ -13,13 +13,10 @@ class ExperienceSerializer(serializers.ModelSerializer):
         model = Experience
         fields = '__all__'
 
-
-
-
-# class CompetenceSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Competence
-#         fields = '__all__'
+class CompetenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Competence
+        fields = '__all__'
 
 
 # class EtablissementSerializer(serializers.ModelSerializer):
