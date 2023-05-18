@@ -101,7 +101,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class WorkerSerializer(serializers.ModelSerializer):
-    metier = MetierSerializer()
+    #metier = serializers.StringRelatedField()
     experiences = serializers.SerializerMethodField()
     formations = serializers.SerializerMethodField()
     competences = serializers.SerializerMethodField()
