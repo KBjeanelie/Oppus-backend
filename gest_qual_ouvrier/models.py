@@ -45,7 +45,6 @@ class Experience(models.Model):
 class Competence(models.Model):
     class Meta:
         app_label = 'account'
-        
     competence = models.CharField(max_length=60)
     workers = models.ManyToManyField('account.Worker', related_name="workers", blank=True)
     created_at = models.DateTimeField(auto_now=True, blank="")
