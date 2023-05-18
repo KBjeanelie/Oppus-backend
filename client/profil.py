@@ -528,9 +528,9 @@ usernames = (
 worker_register_url = "http://192.168.1.74:8000/api/gestion/compte/workers/"
 
 metiers = (range(33, 105))  # Liste des IDs de métiers
-experiences = (range(0,5))
-jobs = (range(1, 50))
-total_ouvriers = 100  # Nombre total d'ouvriers à inscrire
+experiences = (range(5,10))
+jobs = (range(50, 200))
+total_ouvriers = 100 # Nombre total d'ouvriers à inscrire
 
 
 import requests

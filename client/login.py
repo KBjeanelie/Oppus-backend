@@ -3,7 +3,7 @@ import random
 
 
 # URL de base de votre API
-base_url = "http://localhost:8000/api/"
+base_url = "http://192.168.1.74:8000/api/"
 
 # Endpoint pour l'inscription d'un employeur
 # employeur_register_url = base_url + "employeur/register/"
@@ -42,21 +42,22 @@ base_url = "http://localhost:8000/api/"
 #     print("Échec de l'inscription du worker.")
 
 # # Endpoint pour la connexion de l'utilisateur
-# login_url = base_url + "login/"
+login_url = base_url + "gestion/compte/login/"
 
-# # Données de connexion d'un employeur
-# login_data = {
-#     "email": "walter@gmail.com",
-#     "password": "azerty"
-# }
+# Données de connexion d'un employeur
+login_data = {
+    "email": "walter@gmail.com",
+    "password": "azerty"
+}
 
-# # Effectuer une requête POST pour la connexion de l'employeur
-# response = requests.post(login_url, json=login_data)
-# if response.status_code == 200:
-#     access_token = response.json()
-#     print("Connexion réussie! Token d'accès : ", access_token)
-# else:
-#     print("Échec de la connexion.")
+# Effectuer une requête POST pour la connexion de l'employeur
+response = requests.post(login_url, json=login_data)
+if response.status_code == 200:
+    access_token = response.json()
+    print("Connexion réussie! Token d'accès : ", access_token)
+else:
+    print(response.json())
+    print("Échec de la connexion.")
 
 
 # # CREATION DE 30 OUVRIER ALÉATOIREMENT
@@ -79,6 +80,6 @@ base_url = "http://localhost:8000/api/"
 #     else:
 #         print(f"Échec de l'inscription de l'ouvrier {i+1}.")
 
-url = "http://localhost:8000/api/workers/20"
-response = requests.get(url)
-print(response.text)
+# url = "http://localhost:8000/api/workers/20"
+# response = requests.get(url)
+# print(response.text)
