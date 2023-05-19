@@ -46,8 +46,8 @@ login_url = "http://localhost:8000/api/auth/login/"
 
 # Données de connexion d'un employeur
 login_data = {
-    "email": "admin@gmail.com",
-    "password": "azerty123"
+    "email": "test@gmail.com",
+    "password": "test"
 }
 
 # Effectuer une requête POST pour la connexion de l'employeur
