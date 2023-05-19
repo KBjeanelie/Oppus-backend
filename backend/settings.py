@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'account',
     'ref_dom_btp',
     'gest_qual_ouvrier',
-    'gest_offres'
+    'gest_offres',
+    'authentification'
 ]
 
 MIDDLEWARE = [

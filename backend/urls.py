@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('messagerie.urls')),
+    path('api/auth/', include('authentification.urls')),
     path('api/gestion/compte/', include('account.urls')),
     path('api/referentiel-btp/', include('ref_dom_btp.urls')),
     path('api/gestion/messagerie/', include('messagerie.urls')),

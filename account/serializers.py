@@ -1,10 +1,14 @@
 from rest_framework import serializers
-from account.models import Employeur, Gestionnaire, Worker
+from account.models import Employeur, Gestionnaire, User, Worker
 from gest_qual_ouvrier.models import Competence, Experience, Formation
 from gest_qual_ouvrier.serializers import CompetenceSerializer, ExperienceSerializer, FormationSerializer
-from ref_dom_btp.models import Metier
 from ref_dom_btp.serializers import MetierSerializer
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 class WorkerSerializer(serializers.ModelSerializer):
     metier = MetierSerializer()

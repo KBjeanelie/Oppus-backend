@@ -42,12 +42,12 @@ base_url = "http://192.168.1.74:8000/api/"
 #     print("Échec de l'inscription du worker.")
 
 # # Endpoint pour la connexion de l'utilisateur
-login_url = base_url + "gestion/compte/login/"
+login_url = "http://localhost:8000/api/auth/login/"
 
 # Données de connexion d'un employeur
 login_data = {
-    "email": "walter@gmail.com",
-    "password": "azerty"
+    "email": "admin@gmail.com",
+    "password": "azerty123"
 }
 
 # Effectuer une requête POST pour la connexion de l'employeur
