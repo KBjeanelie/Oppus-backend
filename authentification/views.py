@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
+from django.contrib.auth import logout
 # from rest_framework_simplejwt.authentication import JWTAuthentication
 # from rest_framework.permissions import IsAuthenticated
 
@@ -24,6 +25,13 @@ def get_tokens_for_user(user):
 # Custom Token Obtain Pair View
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = UserSerializer
+
+
+
+class UserLogoutView(APIView):
+    def post(self, request, format=None):
+        logout(request)
+        return Response({'detail': 'Déconnexion réussie'}, status=status.HTTP_200_OK)
 
 
 class UserLoginView(APIView):
