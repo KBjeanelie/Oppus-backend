@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from account.models import Employeur
 from account.serializers import UserSerializer
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
@@ -44,19 +45,37 @@ class UserLoginView(APIView):
 class EmployeurRegisterView(APIView):
     renderer_classes = [UserRenderer]
     def post(self, request, format=None):
-      serializer = EmployeurRegisterSerializer(data=request.data)
-      serializer.is_valid(raise_exception=True)
-      user = serializer.save()
-      token = get_tokens_for_user(user)
-      return Response({'token':token, 'msg':'Registration Successful'}, status=status.HTTP_201_CREATED)
+        serializer = EmployeurRegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data['email']
+        if Employeur.objects.filter(email=email).exists():
+            return Response({'error': 'Cet e-mail est déjà utilisé.'}, status=status.HTTP_400_BAD_REQUEST)
+        user = serializer.save()
+        # Authentification de l'utilisateur après l'inscription
+        password = serializer.validated_data['password']
+        auth_user = authenticate(email=email, password=password)
+        if auth_user is not None:
+            token = get_tokens_for_user(user)
+            return Response(token, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error': "Impossible d'authentifier l'utilisateur"}, status=status.HTTP_400_BAD_REQUEST)
 
 class WorkerRegisterView(APIView):
     renderer_classes = [UserRenderer]
     def post(self, request, format=None):
-      serializer = WorkerRegisterSerializer(data=request.data)
-      serializer.is_valid(raise_exception=True)
-      user = serializer.save()
-      token = get_tokens_for_user(user)
-      return Response({'token':token, 'msg':'Registration Successful'}, status=status.HTTP_201_CREATED)
+        serializer = WorkerRegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data['email']
+        if Employeur.objects.filter(email=email).exists():
+            return Response({'error': 'Cet e-mail est déjà utilisé.'}, status=status.HTTP_400_BAD_REQUEST)
+        user = serializer.save()
+        # Authentification de l'utilisateur après l'inscription
+        password = serializer.validated_data['password']
+        auth_user = authenticate(email=email, password=password)
+        if auth_user is not None:
+            token = get_tokens_for_user(user)
+            return Response(token, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error': "Impossible d'authentifier l'utilisateur"}, status=status.HTTP_400_BAD_REQUEST)
 
 
