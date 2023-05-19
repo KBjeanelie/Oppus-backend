@@ -10,7 +10,7 @@ from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from authentification.renderers import UserRenderer
-from authentification.serializers import EmployeurRegister, UserLoginSerializer
+from authentification.serializers import EmployeurRegisterSerializer, UserLoginSerializer, WorkerRegisterSerializer
 
 # Generate Token
 def get_tokens_for_user(user):
@@ -44,7 +44,16 @@ class UserLoginView(APIView):
 class EmployeurRegisterView(APIView):
     renderer_classes = [UserRenderer]
     def post(self, request, format=None):
-      serializer = EmployeurRegister(data=request.data)
+      serializer = EmployeurRegisterSerializer(data=request.data)
+      serializer.is_valid(raise_exception=True)
+      user = serializer.save()
+      token = get_tokens_for_user(user)
+      return Response({'token':token, 'msg':'Registration Successful'}, status=status.HTTP_201_CREATED)
+
+class WorkerRegisterView(APIView):
+    renderer_classes = [UserRenderer]
+    def post(self, request, format=None):
+      serializer = WorkerRegisterSerializer(data=request.data)
       serializer.is_valid(raise_exception=True)
       user = serializer.save()
       token = get_tokens_for_user(user)
