@@ -1,19 +1,7 @@
 import requests
-import json
 
-url = 'http://localhost:8000/api/messagerie/new_messages/'  # remplacer par l'URL de votre serveur
+url = "http://localhost:8000/api/gestion/offres/reservations/"
 
-data = {
-    'sender': 1,  # remplacer par l'ID de l'utilisateur qui envoie le message
-    'recipient': 2,  # remplacer par l'ID de l'utilisateur destinataire
-    'content': 'Bonjour, comment ça va?'  # contenu du message
-}
+responses = requests.get(url)
 
-headers = {
-    'Content-Type': 'application/json'
-}
-
-response = requests.post(url, data=json.dumps(data), headers=headers)
-
-print(response.status_code)
-print(response)
+print(responses.json())

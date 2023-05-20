@@ -1,16 +1,13 @@
 from rest_framework.views import APIView
 from account.models import Employeur
-from account.serializers import UserSerializer
+from account.serializers import EmployeurSerializer, UserSerializer, WorkerSerializer
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from django.contrib.auth import logout
-# from rest_framework_simplejwt.authentication import JWTAuthentication
-# from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
-
 from authentification.renderers import UserRenderer
 from authentification.serializers import EmployeurRegisterSerializer, UserLoginSerializer, WorkerRegisterSerializer
 
@@ -87,3 +84,19 @@ class WorkerRegisterView(APIView):
             return Response({'error': "Impossible d'authentifier l'utilisateur"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+class GetCurrentEmployeur(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        serializer = EmployeurSerializer(user)
+        return Response(serializer.data)
+
+class GetCurrentWorker(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        serializer = WorkerSerializer(user)
+        return Response(serializer.data)

@@ -6,7 +6,7 @@ from .serializers import ReservationSerializer, AppreciationSerializer, OffreSer
 class ReservationViewSet(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -15,7 +15,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
 class AppreciationViewSet(viewsets.ModelViewSet):
     queryset = Appreciation.objects.all()
     serializer_class = AppreciationSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         reservation_id = self.request.data.get('id_reservation')
@@ -46,7 +46,7 @@ class OffreArchiveViewSet(viewsets.ModelViewSet):
 class CommentaireViewSet(viewsets.ModelViewSet):
     queryset = Commentaire.objects.all()
     serializer_class = CommentaireSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         offre_id = self.request.data.get('id_offre')
