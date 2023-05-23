@@ -27,20 +27,38 @@ class AppreciationViewSet(viewsets.ModelViewSet):
 
 
 class OffreViewSet(viewsets.ModelViewSet):
-    queryset = Offre.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = OffreSerializer
-    #permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Récupérer l'utilisateur connecté
+        employeur = self.request.user
+
+        # Filtrer les offres par l'employeur
+        queryset = Offre.objects.filter(employeur=employeur, status=False)
+
+        return queryset
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        # Associer l'employeur actuel à la nouvelle offre
+        serializer.save(employeur=self.request.user)
 
 class OffreArchiveViewSet(viewsets.ModelViewSet):
-    queryset = Offre.objects.filter(statut=False)
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = OffreSerializer
-    #permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Récupérer l'utilisateur connecté
+        employeur = self.request.user
+
+        # Filtrer les offres par l'employeur
+        queryset = Offre.objects.filter(employeur=employeur)
+
+        return queryset
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        # Associer l'employeur actuel à la nouvelle offre
+        serializer.save(employeur=self.request.user)
 
 
 class CommentaireViewSet(viewsets.ModelViewSet):
