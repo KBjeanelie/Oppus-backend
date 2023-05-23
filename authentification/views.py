@@ -10,6 +10,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from authentification.renderers import UserRenderer
 from authentification.serializers import EmployeurRegisterSerializer, UserLoginSerializer, WorkerRegisterSerializer
+from rest_framework.authtoken.models import Token
+
 
 # Generate Token
 def get_tokens_for_user(user):
@@ -24,11 +26,20 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = UserSerializer
 
 
-
 class UserLogoutView(APIView):
-    def post(self, request, format=None):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, format=None):
+        # Récupérer le token de l'utilisateur
+        token = request.auth
+        if token:
+            # Supprimer le token de l'utilisateur
+            Token.objects.filter(key=token).delete()
+        
+        # Déconnecter l'utilisateur
         logout(request)
+        
         return Response({'detail': 'Déconnexion réussie'}, status=status.HTTP_200_OK)
+
 
 
 class UserLoginView(APIView):
@@ -46,6 +57,7 @@ class UserLoginView(APIView):
       return Response(token, status=status.HTTP_200_OK)
     else:
       return Response({'errors':{'non_field_errors':['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
+
 
 class EmployeurRegisterView(APIView):
     renderer_classes = [UserRenderer]
@@ -65,6 +77,7 @@ class EmployeurRegisterView(APIView):
         else:
             return Response({'error': "Impossible d'authentifier l'utilisateur"}, status=status.HTTP_400_BAD_REQUEST)
 
+
 class WorkerRegisterView(APIView):
     renderer_classes = [UserRenderer]
     def post(self, request, format=None):
@@ -82,7 +95,6 @@ class WorkerRegisterView(APIView):
             return Response(token, status=status.HTTP_201_CREATED)
         else:
             return Response({'error': "Impossible d'authentifier l'utilisateur"}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class GetCurrentEmployeur(APIView):
