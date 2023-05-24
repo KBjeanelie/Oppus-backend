@@ -29,12 +29,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 class UserLogoutView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
-        # Récupérer le token de l'utilisateur
-        token = request.auth
-        if token:
-            # Supprimer le token de l'utilisateur
-            Token.objects.filter(key=token).delete()
-        
+
         # Déconnecter l'utilisateur
         logout(request)
         
