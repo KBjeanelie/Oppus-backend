@@ -3,7 +3,7 @@ from ref_dom_btp.models import Domaine, Metier, Travaux
 
 class TravauxSerializer(serializers.ModelSerializer):
     
-    id_domaine = serializers.StringRelatedField()
+    #id_domaine = serializers.StringRelatedField()
     
     class Meta:
         model = Travaux
@@ -28,4 +28,4 @@ class DomaineSerializer(serializers.ModelSerializer):
 class MetierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Metier
-        fields = ['id', 'nom_metier']
+        fields = '__all__'

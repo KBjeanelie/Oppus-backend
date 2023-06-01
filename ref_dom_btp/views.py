@@ -1,4 +1,5 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from ref_dom_btp.serializers import MetierSerializer
 from .models import Metier
 from rest_framework import viewsets
@@ -19,3 +20,9 @@ class DomaineViewSet(viewsets.ModelViewSet):
 class TravauxViewSet(viewsets.ModelViewSet):
     queryset = Travaux.objects.all()
     serializer_class = TravauxSerializer
+    
+    @action(detail=True, methods=['GET'])
+    def by_domaine(self, request, pk=None):
+        travaux = self.queryset.filter(id_domaine=pk)
+        serializer = self.serializer_class(travaux, many=True)
+        return Response(serializer.data)

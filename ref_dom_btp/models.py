@@ -31,6 +31,7 @@ class Travaux(models.Model):
 
 class Metier(models.Model):
     nom_metier = models.CharField(max_length=100)
+    travaux = models.ForeignKey(Travaux, on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
