@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from account.models import Employeur, Worker
 from ref_dom_btp.models import Domaine, Travaux
 
