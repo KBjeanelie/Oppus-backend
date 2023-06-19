@@ -42,6 +42,7 @@ class OffreViewSet(viewsets.ModelViewSet):
         # Associer l'employeur actuel à la nouvelle offre
         serializer.save(employeur=self.request.user)
 
+
 class OffreArchiveViewSet(viewsets.ModelViewSet):
     #permission_classes = [permissions.IsAuthenticated]
     serializer_class = OffreSerializer

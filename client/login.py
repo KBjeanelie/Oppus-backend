@@ -3,7 +3,7 @@ import random
 
 
 # URL de base de votre API
-base_url = "http://192.168.1.74:8000/api/"
+base_url = "http://10.10.10.20:8000/api/"
 
 # Endpoint pour l'inscription d'un employeur
 # employeur_register_url = base_url + "employeur/register/"
@@ -42,7 +42,7 @@ base_url = "http://192.168.1.74:8000/api/"
 #     print("Échec de l'inscription du worker.")
 
 # # Endpoint pour la connexion de l'utilisateur
-login_url = "http://localhost:8000/api/auth/login/"
+login_url = "http://10.10.10.20:8000/api/auth/login/"
 
 # Données de connexion d'un employeur
 login_data = {
