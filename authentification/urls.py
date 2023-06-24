@@ -1,10 +1,10 @@
 from django.urls import path
 
-from authentification.views import EmployeurRegisterView, GetCurrentEmployeur, UserLoginView, UserLogoutView, WorkerRegisterView
+from authentification.views import EmployeurLoginView, EmployeurRegisterView, GetCurrentEmployeur, UserLogoutView, WorkerRegisterView
 
 
 urlpatterns = [
-    path('login/', UserLoginView.as_view()),
+    path('login/', EmployeurLoginView.as_view()),
     path('logout/', UserLogoutView.as_view(), name='logout'),
     path('employeur/register/', EmployeurRegisterView.as_view()),
     path('employeur/get-current-user/', GetCurrentEmployeur.as_view()),

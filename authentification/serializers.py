@@ -8,6 +8,13 @@ class UserLoginSerializer(serializers.ModelSerializer):
     fields = ['email', 'password']
 
 
+class EmployeurLoginSerializer(serializers.ModelSerializer):
+  email = serializers.EmailField(max_length=255)
+  class Meta:
+    model = Employeur
+    fields = ['email', 'password']
+
+
 class EmployeurRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employeur
