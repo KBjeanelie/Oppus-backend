@@ -44,18 +44,18 @@ class OffreViewSet(viewsets.ModelViewSet):
 
 
 class OffreArchiveViewSet(viewsets.ModelViewSet):
-    #permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = OffreSerializer
     queryset = Offre.objects.all()
 
-    # def get_queryset(self):
-    #     # Récupérer l'utilisateur connecté
-    #     employeur = self.request.user
+    def get_queryset(self):
+        # Récupérer l'utilisateur connecté
+        employeur = self.request.user
 
-    #     # Filtrer les offres par l'employeur
-    #     queryset = Offre.objects.filter(employeur=employeur, statut=False)
+        # Filtrer les offres par l'employeur
+        queryset = Offre.objects.filter(employeur=employeur, statut=False)
 
-    #     return queryset
+        return queryset
 
     def perform_create(self, serializer):
         # Associer l'employeur actuel à la nouvelle offre
