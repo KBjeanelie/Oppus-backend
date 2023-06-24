@@ -18,10 +18,11 @@ class Appreciation(models.Model):
 class Offre(models.Model):
     jour = models.DateField()
     heure = models.TimeField(default="01:00:00")
-    description = models.TextField(blank=False)
+    description = models.TextField(blank=True)
     employeur = models.ForeignKey(Employeur, on_delete=models.CASCADE, default="", related_name="employeur_offres")
     lieu = models.CharField(max_length=100)
     statut = models.BooleanField(default=True)
+    
     id_domaine = models.ForeignKey(Domaine, on_delete=models.CASCADE, related_name="domaine_offre")
     id_travaux = models.ForeignKey(Travaux, on_delete=models.CASCADE, related_name="offre_travaux")
     created_at = models.DateTimeField(auto_now_add=True)

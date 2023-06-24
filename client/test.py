@@ -5,6 +5,7 @@ header = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZ
 headers = {
     "Authorization" : f"Bearer {header}"
 }
-responses = requests.get(url)
+url2 = "http://10.10.10.20:8000/api/gestion/compte/employeurs/"
+responses = requests.get(url2)
 
 print(responses.json())

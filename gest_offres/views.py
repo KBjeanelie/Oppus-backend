@@ -27,7 +27,7 @@ class AppreciationViewSet(viewsets.ModelViewSet):
 
 
 class OffreViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
     serializer_class = OffreSerializer
 
     def get_queryset(self):
