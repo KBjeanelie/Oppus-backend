@@ -3,24 +3,24 @@ import random
 
 
 # URL de base de votre API
-base_url = "http://10.10.10.20:8000/api/"
+base_url = "http://10.10.10.20:8000/api/auth/"
 
 # Endpoint pour l'inscription d'un employeur
-# employeur_register_url = base_url + "employeur/register/"
+employeur_register_url = base_url + "employeur/register/"
 
 # # Données d'inscription d'un employeur
-# employeur_data = {
-#     "email": "employeur@example.com",
-#     "username": "employeur1",
-#     "password": "employeurpassword"
-# }
+employeur_data = {
+    "email": "elijahwalter2018@gmail.com",
+    "username": "KBjeanelie",
+    "password": "azerty"
+}
 
 # # Effectuer une requête POST pour l'inscription de l'employeur
-# response = requests.post(employeur_register_url, json=employeur_data)
-# if response.status_code == 201:
-#     print("Inscription de l'employeur réussie!")
-# else:
-#     print("Échec de l'inscription de l'employeur.")
+response = requests.post(employeur_register_url, json=employeur_data)
+if response.status_code == 201:
+    print("Inscription de l'employeur réussie!")
+else:
+    print("Échec de l'inscription de l'employeur.")
 
 # Endpoint pour l'inscription d'un worker
 # worker_register_url = base_url + "worker/register/"
@@ -42,22 +42,22 @@ base_url = "http://10.10.10.20:8000/api/"
 #     print("Échec de l'inscription du worker.")
 
 # # Endpoint pour la connexion de l'utilisateur
-login_url = "http://10.10.10.20:8000/api/auth/login/"
+# login_url = "http://10.10.10.20:8000/api/auth/login/"
 
 # Données de connexion d'un employeur
-login_data = {
-    "email": "worker@gmail.com",
-    "password": "azerty"
-}
+# login_data = {
+#     "email": "worker@gmail.com",
+#     "password": "azerty"
+# }
 
 # Effectuer une requête POST pour la connexion de l'employeur
-response = requests.post(login_url, json=login_data)
-if response.status_code == 200:
-    access_token = response.json()
-    print("Connexion réussie! Token d'accès : ", access_token)
-else:
-    print(response.json())
-    print("Échec de la connexion.")
+# response = requests.post(login_url, json=login_data)
+# if response.status_code == 200:
+#     access_token = response.json()
+#     print("Connexion réussie! Token d'accès : ", access_token)
+# else:
+#     print(response.json())
+#     print("Échec de la connexion.")
 
 
 # # CREATION DE 30 OUVRIER ALÉATOIREMENT

@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import Employeur, Worker
+from account.models import Employeur, User, Worker
 from ref_dom_btp.models import Domaine, Travaux
 
 # Create your models here.
@@ -19,7 +19,7 @@ class Offre(models.Model):
     jour = models.DateField()
     heure = models.TimeField(default="01:00:00")
     description = models.TextField(blank=True)
-    employeur = models.ForeignKey(Employeur, on_delete=models.CASCADE, default="", related_name="employeur_offres")
+    employeur = models.ForeignKey(User, on_delete=models.CASCADE, default="", related_name="employeur_offres")
     lieu = models.CharField(max_length=100)
     statut = models.BooleanField(default=True)
     

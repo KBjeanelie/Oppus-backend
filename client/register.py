@@ -1,9 +1,9 @@
 import requests
 
-endpoint = "http://localhost:8000/api/auth/login/"
+endpoint = "http://10.10.10.20:8000/api/auth/login/"
 
 response= requests.post(endpoint, json={
-    "email":"walter@gmail.com",
+    "email":"elijahwalter2018@gmail.com",
     "password":"azerty"})
 
 print(response.text)
