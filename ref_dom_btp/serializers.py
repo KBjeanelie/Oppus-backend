@@ -22,9 +22,6 @@ class DomaineSerializer(serializers.ModelSerializer):
 
 
 
-
-
-
 class MetierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Metier

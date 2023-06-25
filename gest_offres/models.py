@@ -45,9 +45,9 @@ class Commentaire(models.Model):
 
 class Reservation(models.Model):
     montant = models.FloatField()
-    code = models.CharField(max_length=60, null=True)
-    employeur = models.ForeignKey(Employeur, on_delete=models.CASCADE, default="", related_name="employeur_reserve")
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, null=False, related_name="ouvrier_reserver")
+    code = models.CharField(max_length=60, null=True, blank=True)
+    employeur = models.ForeignKey(User, on_delete=models.CASCADE, default="", related_name="employeur_reserve")
+    worker = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="ouvrier_reserver")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     id_offre = models.ForeignKey(Offre, on_delete=models.CASCADE, related_name="reservation_doffre")

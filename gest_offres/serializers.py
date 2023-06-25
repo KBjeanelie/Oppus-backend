@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from account.serializers import EmployeurSerializer, WorkerSerializer
+from ref_dom_btp.models import Domaine, Travaux
 from ref_dom_btp.serializers import DomaineSerializer, TravauxSerializer
 
 from .models import Reservation, Offre, Appreciation, Commentaire
@@ -15,8 +16,8 @@ class AppreciationSerializer(serializers.ModelSerializer):
 
 class OffreSerializer(serializers.ModelSerializer):
     #user = UserSerializer(read_only=True)
-    id_domaine = DomaineSerializer(read_only=True)
-    id_travaux = TravauxSerializer(read_only=True)
+    id_domaine = serializers.PrimaryKeyRelatedField(queryset=Domaine.objects.all())
+    id_travaux = serializers.PrimaryKeyRelatedField(queryset=Travaux.objects.all())
     employeur = EmployeurSerializer(read_only=True)
     commentaires = serializers.SerializerMethodField()
     id_reservation = serializers.PrimaryKeyRelatedField(queryset=Reservation.objects.all(), required=False)
