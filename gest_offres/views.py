@@ -27,7 +27,7 @@ class AppreciationViewSet(viewsets.ModelViewSet):
 
 
 class OffreViewSet(viewsets.ModelViewSet):
-    #permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = OffreSerializer
 
     def get_queryset(self):
@@ -35,7 +35,7 @@ class OffreViewSet(viewsets.ModelViewSet):
         employeur = self.request.user
 
         # Filtrer les offres par l'employeur
-        queryset = Offre.objects.filter(employeur=employeur, statut=True)
+        queryset = Offre.objects.filter(employeur=employeur, statut=True).order_by('-created_at')
         return queryset
 
     def perform_create(self, serializer):
