@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Oppuss-backend API')
+
 urlpatterns = [
+    re_path(r'^$', schema_view),
     path('admin/', admin.site.urls),
     path('', include('messagerie.urls')),
     path('api/auth/', include('authentification.urls')),
