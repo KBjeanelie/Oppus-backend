@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager,AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 from ref_dom_btp.models import Metier
 
@@ -57,7 +57,7 @@ class UserManager(BaseUserManager):
     
     
 #  Custom User Model
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     
     username = models.CharField(max_length=255, unique=True,)
     
@@ -90,19 +90,6 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     
     REQUIRED_FIELDS = ['username', 'tel']
-    
-    # def send_message(self, recipients, content):
-    #     from messagerie.models import Message
-    #     message = Message.objects.create(sender=self, content=content)
-    #     message.recipient.add(*recipients)
-    #     return message
-
-    # def get_received_messages(self):
-    #     return self.received_messages.all()
-
-    # def get_sent_messages(self):
-    #     return self.sent_messages.all()
-    
 
     def __str__(self):
         return f"{self.username} - {self.email}"
