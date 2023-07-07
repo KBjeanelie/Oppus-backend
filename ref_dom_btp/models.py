@@ -19,16 +19,13 @@ class Metier(models.Model):
     nom_metier = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    travaux = models.ManyToManyField('ref_dom_btp.Travaux', related_name='metiers_travaux')
     
     def __str__(self) -> str:
         return f"Status : {self.nom_metier}"
     
     
 class Travaux(models.Model):
-    class Meta:
-        app_label = 'ref_dom_btp'
-    
+
     nom_travaux = models.CharField(max_length=100)
     
     id_domaine = models.ForeignKey(Domaine, on_delete=models.CASCADE)
@@ -36,8 +33,6 @@ class Travaux(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     updated_at = models.DateTimeField(auto_now=True)
-    
-    metier = models.ManyToManyField(Metier, related_name='travaux_metier')
     
     def __str__(self) -> str:
         return f"Nom du travaux : {self.nom_travaux}"
