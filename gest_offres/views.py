@@ -1,4 +1,9 @@
 from rest_framework import viewsets, permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from account.models import Worker
+
+from account.serializers import WorkerSerializer
 from .models import Reservation, Appreciation, Offre, Commentaire
 from .serializers import ReservationSerializer, AppreciationSerializer, OffreSerializer, CommentaireSerializer
 
@@ -61,6 +66,26 @@ class OffreArchiveViewSet(viewsets.ModelViewSet):
         # Associer l'employeur actuel à la nouvelle offre
         serializer.save(employeur=self.request.user)
 
+
+class GetWorkerByOfferAPIView(APIView):
+    
+    def get(self, request, offre_id):
+        # Récupérer l'objet Offre en fonction de l'offre_id
+        offre = Offre.objects.get(id=offre_id)
+        
+        # Récupérer l'objet Travaux associé à l'Offre
+        travaux = offre.id_travaux
+        
+        # Récupérer les objets Metier associés au Travaux
+        metiers = travaux.metier.all()
+        
+        # Récupérer les objets Worker qui ont les objets Metier associés
+        workers = Worker.objects.filter(metier__in=metiers)
+        
+        serializer = WorkerSerializer(workers, many=True)
+        
+        return Response(serializer.data)
+    
 
 class CommentaireViewSet(viewsets.ModelViewSet):
     queryset = Commentaire.objects.all()

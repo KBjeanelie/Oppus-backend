@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import OffreArchiveViewSet, ReservationViewSet, AppreciationViewSet, OffreViewSet, CommentaireViewSet
+from .views import GetWorkerByOfferAPIView, OffreArchiveViewSet, ReservationViewSet, AppreciationViewSet, OffreViewSet, CommentaireViewSet
 
 router = DefaultRouter()
 router.register(r'reservations', ReservationViewSet)
@@ -11,4 +11,5 @@ router.register(r'commentaires', CommentaireViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('<int:offre_id>/workers/', GetWorkerByOfferAPIView.as_view(), name='worker-by-travaux'),
 ]
