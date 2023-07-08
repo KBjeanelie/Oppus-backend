@@ -2,7 +2,7 @@ from rest_framework import serializers
 from account.models import Employeur, Gestionnaire, User, Worker
 from gest_qual_ouvrier.models import Competence, Experience, Formation
 from gest_qual_ouvrier.serializers import CompetenceSerializer, ExperienceSerializer, FormationSerializer
-from ref_dom_btp.serializers import MetierSerializer
+from ref_dom_btp.serializers import MetierSerializer, TravauxSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -12,6 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class WorkerSerializer(serializers.ModelSerializer):
     metier = MetierSerializer()
+    canDo = TravauxSerializer(many=True)
     experiences = serializers.SerializerMethodField()
     formations = serializers.SerializerMethodField()
     competences = serializers.SerializerMethodField()

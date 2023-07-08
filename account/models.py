@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
-from ref_dom_btp.models import Metier
+from ref_dom_btp.models import Metier, Travaux
 
 #  Custom User Manager
 class UserManager(BaseUserManager):
@@ -116,6 +116,8 @@ class Worker(User):
     metier = models.ForeignKey(Metier, on_delete=models.CASCADE)
     
     competences = models.ManyToManyField('account.Competence', related_name="competences", blank=True)
+    
+    canDo = models.ManyToManyField(Travaux)
     
     nombre_jobs = models.IntegerField(default=0)
     
