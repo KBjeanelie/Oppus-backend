@@ -34,10 +34,9 @@ class GetWorkerByMetier(APIView):
     def get(self, request, travaux_id):
         try:
             travaux = Travaux.objects.get(id=travaux_id)
-            metiers = Metier.objects.get(task=travaux)
-            workers = Worker.objects.filter(metier=metiers)
-            serializer = WorkerSerializer(workers, many=True)  # Remplacez MetierSerializer par le nom de votre sérialiseur pour le modèle Metier
-            #serializer = MetierSerializer(metiers)
+            metiers = Metier.objects.filter(task=travaux)
+            workers = Worker.objects.filter(metier__in=metiers).order_by('-annee_experience')
+            serializer = WorkerSerializer(workers, many=True)
             return Response(serializer.data)
         
         except Worker.DoesNotExist:

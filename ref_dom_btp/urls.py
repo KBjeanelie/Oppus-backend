@@ -9,5 +9,5 @@ router.register(r'metier', MetierViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('get-worker-by-tash/<int:travaux_id>', GetWorkerByMetier.as_view())
+    path('get-worker-by-tash/<int:travaux_id>/', GetWorkerByMetier.as_view())
 ]
