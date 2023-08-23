@@ -1,6 +1,6 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from account.models import Worker
+from account.models import Ouvrier
 from account.serializers import WorkerSerializer
 from ref_dom_btp.serializers import MetierSerializer
 from rest_framework.views import APIView
@@ -35,9 +35,9 @@ class GetWorkerByMetier(APIView):
         try:
             travaux = Travaux.objects.get(id=travaux_id)
             metiers = Metier.objects.filter(task=travaux)
-            workers = Worker.objects.filter(metier__in=metiers).order_by('-annee_experience')
+            workers = Ouvrier.objects.filter(metier__in=metiers).order_by('-annee_experience')
             serializer = WorkerSerializer(workers, many=True)
             return Response(serializer.data)
         
-        except Worker.DoesNotExist:
+        except Ouvrier.DoesNotExist:
             return Response({"error": "Travaux does not exist"}, status=404)

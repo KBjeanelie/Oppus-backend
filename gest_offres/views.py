@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from account.models import Worker
+from account.models import Ouvrier
 
 from account.serializers import WorkerSerializer
 from .models import Reservation, Appreciation, Offre, Commentaire

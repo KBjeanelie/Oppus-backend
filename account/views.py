@@ -1,5 +1,5 @@
 from requests import Response
-from account.models import Employeur, Worker
+from account.models import Employeur, Ouvrier
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -7,7 +7,7 @@ from account.serializers import EmployeurSerializer, WorkerSerializer
 
 
 class WorkerViewSet(viewsets.ModelViewSet):
-    queryset = Worker.objects.all().order_by('-nombre_jobs')
+    queryset = Ouvrier.objects.all().order_by('-nombre_jobs')
     serializer_class = WorkerSerializer
 
 

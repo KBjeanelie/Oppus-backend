@@ -110,7 +110,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         # Simplest possible answer: All admins are staff
         return self.is_admin
 
-class Worker(User):
+class Ouvrier(User):
     # Champs spécifiques à l'ouvrier
     
     metier = models.ForeignKey(Metier, on_delete=models.CASCADE)

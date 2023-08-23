@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import Employeur, User, Worker
+from account.models import Employeur, User, Ouvrier
 from ref_dom_btp.models import Domaine, Travaux
 
 # Create your models here.
@@ -35,7 +35,7 @@ class Offre(models.Model):
 class Commentaire(models.Model):
     content = models.TextField()
     date = models.DateTimeField(auto_now=True)
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, default="", related_name="workers_commentaire")
+    worker = models.ForeignKey(Ouvrier, on_delete=models.CASCADE, default="", related_name="workers_commentaire")
     id_offre = models.ForeignKey(Offre, on_delete=models.CASCADE, null=False, related_name="commentaire_doffre")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

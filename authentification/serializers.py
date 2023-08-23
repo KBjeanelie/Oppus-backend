@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from account.models import Employeur, User, Worker
+from account.models import Employeur, User, Ouvrier
 
 class UserLoginSerializer(serializers.ModelSerializer):
   email = serializers.EmailField(max_length=255)
@@ -25,8 +25,8 @@ class EmployeurRegisterSerializer(serializers.ModelSerializer):
 
 class WorkerRegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Worker
+        model = Ouvrier
         fields = ['email', 'username', 'metier', 'password']
     
     def create(self, validate_data):
-        return Worker.objects.create_worker(**validate_data)
+        return Ouvrier.objects.create_worker(**validate_data)

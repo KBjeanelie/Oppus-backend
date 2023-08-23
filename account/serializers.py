@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from account.models import Employeur, Gestionnaire, User, Worker
+from account.models import Employeur, Gestionnaire, User, Ouvrier
 from gest_qual_ouvrier.models import Competence, Experience, Formation
 from gest_qual_ouvrier.serializers import CompetenceSerializer, ExperienceSerializer, FormationSerializer
 from ref_dom_btp.serializers import MetierSerializer, TravauxSerializer
@@ -18,7 +18,7 @@ class WorkerSerializer(serializers.ModelSerializer):
     competences = serializers.SerializerMethodField()
     
     class Meta:
-        model = Worker
+        model = Ouvrier
         fields = '__all__'
         
     def get_experiences(self, worker):
